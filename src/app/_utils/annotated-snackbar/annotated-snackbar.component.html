@@ -1,0 +1,10 @@
+
+
+<span [class]="isError ? 'cart-add-message error' : 'cart-add-message'" matSnackBarLabel>
+  {{snackMessage}}
+</span>
+<span matSnackBarActions class="snack-actions-span">
+  <button mat-button matSnackBarAction class="close-btn" (click)="snackBarRef.dismissWithAction()">
+    <i class="bi bi-x-square-fill"></i>
+  </button>
+</span>

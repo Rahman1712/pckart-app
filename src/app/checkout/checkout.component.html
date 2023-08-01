@@ -1,0 +1,230 @@
+<main id="main" class="main">
+  <div class="pagetitle ms-3">
+    <h1>Checkout</h1>
+    <nav style="--bs-breadcrumb-divider: '>';">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a routerLink="/" routerLinkActive="active">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a routerLink="/cart" routerLinkActive="active">Carts</a>
+        </li>
+        <li class="breadcrumb-item active">Checkout</li>
+      </ol>
+    </nav>
+  </div>
+
+  <section class="section">
+    <div class="container-fluid">
+      <div class="row" class="row" *ngIf="cartResponseItems.length > 0; else elseBlock;">
+
+        <div class="row m-0 p-0 col-lg-8 d-flex flex-column">
+          <div class="col-12">
+            <div class="col-lg-12 card p-2">
+              <div class="cart-list-section">
+                <p class="cart-list-title">Products</p>
+                <ul *ngFor="let cartItem of cartResponseItems ;">
+                  <li >
+                    <p class="row">
+                      <span class="col-12 col-md-8 product_name">{{cartItem.productResponse.productName}}</span>
+                      <span class="col col-md-2">{{cartItem.quantity}} <b>X</b> {{cartItem.productResponse.productPrice}}</span>
+                      <span class="col col-md-2">{{(cartItem.quantity * cartItem.productResponse.productPrice) | currency: 'INR'}}</span>
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="col-lg-12 card p-2">
+              <div class="cart-list-section">
+                <p class="cart-list-title">Addresses</p>
+                <div class="d-flex justify-content-start mb-2 p-0">
+                  <button (click)="addAddress()"  type="button" mat-raised-button class="btn btn-primary me-3">
+                    <i class="bi bi-plus-circle"></i>
+                    Add Address
+                </button>
+                </div>
+                
+                <form class="address-form">
+                  <div class="list-group"  >
+                    <label class="list-group-item d-flex" *ngFor="let address of addressList;" [classList]="selectedAddress == address ?'list-group-item d-flex active' : 'list-group-item d-flex'">
+                      <div class="d-flex flex-row align-items-center justify-content-center pe-3 list-group-div" >
+                        <input class="form-check-input col-2" type="radio" name="address" id="{{address.id}}" [value]="address" [(ngModel)]="selectedAddress" [checked]="address.selected"  (click)="setDefault(address.id)">
+                        <p class="p-0 ps-2 text-center" class="adress-radio-label">
+                          {{address | addressJoin}}
+                        </p>
+                      </div>
+                      <button (click)="updateAddress(address)"  type="button" mat-raised-button class="btn btn-primary ms-auto" >
+                  <!-- [color]="selectedAddress != address ? 'primary' : ''" -->
+                        <i class="bi bi-pencil-square"></i>
+                      </button>
+                    </label>
+                  </div>
+                </form>
+                
+                <div class="row p-3 contact_row">
+                  <div class="card">
+                    <div class="card-body">
+                      <p class="card-title">
+                        Contact Details
+                      </p>
+                      <form ngNativeValidate #contactForm="ngForm">
+                        <div class="row d-flex">
+                          <div class="col-md-6 mb-1">
+                            <label for="contact">Contact</label>
+                            <input type="text"  name="contact" id="contact" class="form-control" pattern="[0-9]{10}"
+                              title="please enter a 10 digit mobile number" required [value]="contact" [(ngModel)]="contact"> 
+                            <!-- <div *ngIf="contactForm.controls['contact'].touched && contactForm.controls['contact'].invalid">
+                              <div *ngIf="contactForm.controls['contact'].errors">contact is required</div>
+                            </div> -->
+                          </div>
+                          <div class="col-md-6 mb-3">
+                            <label for="alternative_contact">Alternative Contact</label>
+                            <input type="text" pattern="[0-9]{10}" name="alternative_contact" id="alternative_contact" class="form-control" [value]="alternative_contact" title="please enter a 10 digit mobile number"  [(ngModel)]="alternative_contact">
+                          </div>
+                          <div class="col-m6-6">
+                            <button (click)="updateContactDetails(contactForm,selectedAddress)" type="submit" mat-raised-button color="primary" class="btn btn-primary">
+                              save
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <form #orderForm="ngForm">
+            <div class="card">
+              <div class="card-body">
+                <p class="card-title">
+                  CHECKOUT
+                </p>
+                <div class="subtotal d-flex justify-content-between">
+                  <p>Total</p>
+                  <span>{{ calculateSubtotal() | currency: 'INR'}}</span>
+                </div>
+                <!-- <hr class="cart-divider"> -->
+                <div class="shipping d-flex justify-content-between align-items-center mt-1">
+                  <p>Shipping</p>
+                  <div class="text-center">
+                    <p>{{shipping == 0 ? 'Free shipping' : shipping | currency: 'INR'}}</p>
+                  </div>
+                </div>
+                <!-- <hr class="cart-divider"> -->
+                <div class="coupon">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <p class="p-0 m-0">Coupon</p>
+                    <input class="coupon_code" type="text" #couponCode (keyup)="validChange(couponCode.value)"
+                      [disabled]="isValidCoupon">
+                    <button (click)="isValidCoupon ? removeCoupon(couponCode): applyCoupon(couponCode.value)" mat-stroked-button
+                      color="accent" class="coupon_apply_btn" [disabled]="!buttonEnable"> {{isValidCoupon?'remove'
+                      :'apply'}}</button>
+                  </div>
+                  <p class="text-center text-danger" *ngIf="!isValidCoupon">{{errorMsgCoupon}}</p>
+                  <div class="d-flex flex-row justify-content-between mt-2" *ngIf="couponDiscount != 0">
+                    <p>Coupon Discount</p>
+                    <div class="text-end m-0">
+                      <p class="total-price p-0 m-0">
+                        <span class="me-1">({{couponDiscount}}%) </span>
+                        {{-(calculateSubtotal()*couponDiscount/100) | currency: 'INR'}}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <hr class="cart-divider">
+                <div class="total d-flex justify-content-between align-items-center mt-1">
+                  <P><b>Subtotal</b></P>
+                  <div class="text-end m-0">
+                    <p class="total-price p-0 m-0">{{((calculateSubtotal()+shipping) - calculateSubtotal()*couponDiscount/100) |
+                      currency: 'INR'}}</p>
+                  </div>
+                </div>
+        
+                <hr class="cart-divider">
+        
+                <div class="card">
+                  <div class="card-body">
+                    <p class="card-title">
+                      Payment
+                    </p>
+                    <div class="container custom-radio ms-2 mt-0 p-0">
+        
+                      <div class="form-check d-flex flex-row align-items-center"
+                       [matTooltip]="calculateSubtotal()>200000 ? 'amount abow 2 lakhs only pay through online' : ''">
+                        <input class="form-check-input" type="radio" name="payment" id="CASH_ON_DELIVERY"
+                          value="CASH_ON_DELIVERY" (click)="paymentMethodSelect($event)"
+                          [disabled]="calculateSubtotal()>200000"
+                          >
+                        <label class="form-check-label" for="CASH_ON_DELIVERY">cash on delivery (COD)</label>
+                      </div>
+                      <div class="form-check d-flex flex-row align-items-center mt-2">
+                        <input class="form-check-input" type="radio" name="payment" id="ONLINE" value="ONLINE"  (click)="paymentMethodSelect($event)">
+                        <label class="form-check-label" for="ONLINE">online</label>
+                      </div>
+    
+                    </div>
+        
+                  </div>
+                </div>
+        
+                <hr class="cart-divider">
+        
+                <div class="text-center mt-3">
+                  <!-- <button (click)="placeOrder(orderForm)" 
+                  type="submit" mat-raised-button color="primary" [disabled]="paymentMethod == undefined || null" >
+                    {{ paymentMethod == undefined || getPaymentText() == 'Cash on Delivery' ? 'Place Order' : 'Pay Online'}}
+                  </button> -->
+                  <button (click)="placeOrder(orderForm)" 
+                  type="submit" mat-raised-button color="primary" [disabled]="paymentMethod == undefined || null" >
+                    {{ paymentMethod == undefined || getPaymentText() == 'CASH_ON_DELIVERY' ? 'Place Order' : 'Pay Online'}}
+                  </button>
+                  <!-- <p *ngIf="paymentMethod 'CASH_ON_DELIVERY'"></p> -->
+                </div>
+                
+              </div>
+            </div>
+          </form>
+        </div>
+
+      </div>
+      <ng-template #elseBlock>
+        <!-- <h4 class="text text-center mt-5 no-item-text">No products for checkout</h4> -->
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <div class="no_item_card">
+                <div class="card-body">
+                  <i class="bi bi-emoji-smile display-1 text-secondary mb-3"></i>
+                  <h5 class="card-title">No Checkout Items</h5>
+                  <p class="card-text">You don't have any checkout items yet.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </section>
+  <!-- <section class="section">
+    <div class="row align-items-top">
+      <form #orderForm="ngForm" (ngSubmit)="createTransactionAndPlaceOrder(orderForm)">
+
+        <div>
+          <button type="submit" mat-stroked-button color=""primary>Place Order</button>
+        </div>
+
+      </form>
+    </div>
+  </section> -->
+</main>
+
+<!-- ProgressRoundComponent -->
+<app-progress-round *ngIf="showProgressRound"></app-progress-round>
+

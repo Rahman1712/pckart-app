@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="d-flex flex-column text-center">
+    <div class="d-flex flex-row row position-relative title-row">
+      <h3 class="m-0 p-0" mat-dialog-title>Reset Password</h3>
+      <p class="m-0 p-0 text-success">otp has been send to {{email}}</p>
+      <div mat-dialog-actions class="position-absolute mat-close">
+        <button mat-button color="warn" (click)="dialogRef.close(false)">X</button>
+      </div>
+    </div>
+    <div mat-dialog-content>
+     <div *ngIf="isErrorOnOtp()"  class="text text-danger">
+        <h6>{{errorMsg}}</h6>
+      </div>
+      <form ngNativeValidate #passwordForm="ngForm"  (ngSubmit)="updateForgotPasswordByEmail()">
+                 
+        <div class="row mb-3">
+          <label for="otp" class="col-md-4 col-lg-3 col-form-label">OTP</label>
+          <div class="col-md-8 col-lg-9">
+            <input name="otp" type="otp" class="form-control" id="otp" required [(ngModel)]="otp" (keyup)="onKeyUp()">
+          </div>
+        </div>
+      
+        <div class="row mb-3">
+          <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+          <div class="col-md-8 col-lg-9">
+            <input name="newPassword" type="password" class="form-control" id="newPassword" required [(ngModel)]="newPassword" (keyup)="onKeyUp()">
+          </div>
+        </div>
+      
+        <div class="row mb-3">
+          <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+          <div class="col-md-8 col-lg-9">
+            <input name="renewPassword" type="password" class="form-control" id="renewPassword" required [(ngModel)]="renewPassword" (keyup)="onKeyUp()">
+          </div>
+        </div>
+      
+        <div *ngIf="isSuccess()"  class="text text-success bg-light">
+          <h6>{{successMsg}}</h6>
+        </div>
+        <div class="text-center p-0 m-0">
+          <button mat-raised-button type="submit" class="btn btn-primary">reset</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

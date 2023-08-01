@@ -1,0 +1,135 @@
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Profile</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a routerLink="/" routerLinkActive="active">Home</a>
+        </li>
+        <!-- <li class="breadcrumb-item">
+          <a routerLink="/profile" routerLinkActive="active">Profile</a>
+        </li> -->
+        <li class="breadcrumb-item active">Address</li>
+      </ol>
+    </nav>
+  </div>
+
+  <section class="section profile">
+    <div class="row">
+      <div class="col-xl-4">
+  
+        <div class="card">
+          <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+  
+            <ul class="sidebar-nav" id="sidebar-nav">
+  
+              <li class="nav-item">
+                <div class="d-flex flex-column align-items-center">
+                  <img src="assets/img/user.png" alt="Profile" class="rounded-circle" height="70px">
+                  <p>{{user.fullname}}</p>
+                </div>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/profile" routerLinkActive="active">
+                  <i class="bi bi-person-gear"></i>
+                  <span>Profile Account</span>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/address" routerLinkActive="active">
+                  <i class="bi bi-list"></i>
+                  <span>Address</span>
+                </a>
+              </li>
+  
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/orders" routerLinkActive="active">
+                  <i class="bi bi-cart"></i>
+                  <span>Orders</span>
+                </a>
+              </li>
+  
+              
+  
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/login" routerLinkActive="active">
+                  <i class="bi bi-box-arrow-right"></i>
+                  <span>Logout</span>
+                </a>
+              </li>
+  
+            </ul>
+  
+          </div>
+        </div>
+  
+      </div>
+  
+      <div class="col-xl-8">
+  
+        <div class="card">
+          <div class="card-body pt-3">
+            <div class="d-flex align-items-center ">
+              <button (click)="addAddress()" type="button" mat-raised-button class="btn btn-primary me-3">
+                  <i class="bi bi-plus-circle"></i>
+                  Add Address
+              </button>
+            </div>
+            <div class="pt-2">
+  
+              <div class="profile-overview">
+                <p class="card-title">Address List</p>
+  
+                <div class="row">
+                  <div class="col-md-6 col-xl-6" *ngFor="let address of addressList; let i = index;">
+                    <div class="card m-b-30" [class.address-active]="address.selected">
+                      <div class="card-body row mb-0 pb-0 position-relative address-card">
+                        <div class="card-title align-self-center mb-0">
+                          <p class="m-0"> {{address.fullname}}</p>
+                          <p class="m-0"> {{address.houseno}}</p>
+                          <p class="m-0"> {{address.place}}</p>
+                          <p class="m-0"> {{address.city}}</p>
+                          <p class="m-0"> {{address.post}}</p>
+                          <p class="m-0"> {{address.pincode}}</p>
+                          <p class="m-0"> {{address.state}}</p>
+                          <p class="m-0"> {{address.country}}</p>
+                          <p class="m-0"> {{address.contact}}</p>
+                          <p class="m-0"> {{address.alternative_contact}}</p>
+                          <!-- <p class="m-0"> {{address.selected}}</p> -->
+                        </div>
+                      </div>
+                      <div class="card-body position-relative">
+                        <div class="float-right btn-group btn-group-sm">
+                          <a class="btn btn-secondary" (click)="updateAddress(address)">
+                            <i class="bi bi-pencil-square text-white"></i>
+                          </a>
+                          <a class="btn btn-danger" (click)="deleteAddress(address)">
+                            <i class="bi bi-trash text-white"></i>
+                          </a>
+                
+                        </div>
+                      </div>
+                      <a (click)="setDefault(address.id)" class="btn btn-warning btn_active position-absolute">
+                        <i [class]="address.selected ? 'bi bi-check2-circle text-white' : 'bi bi-dash text-white'"></i>
+                        <!-- <input class="form-check-input" type="radio" name="addressRadios" id="addressRadio"
+                          (click)="setDefault(address.id)" [checked]="address.selected"> -->
+                      </a>
+                    </div>
+                  </div>
+              </div>
+  
+              </div>
+  
+            </div>
+  
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  </section>
+
+</main>

@@ -1,0 +1,25 @@
+
+:host {
+  display: flex;
+  /* background: #012970; */
+}
+
+.cart-add-message {
+  color: #F0F0F0;
+  /* background: #012970; */
+}
+.cart-add-message.error {
+  color: #ff4040;
+  /* background: #012970; */
+}
+
+/* .snack-actions-span{
+  background: #012970;
+} */
+
+.snack-actions-span .close-btn{
+  background: #3333339c;
+}
+.snack-actions-span .close-btn i{
+  color: #F0F0F0;
+}

@@ -1,0 +1,23 @@
+#slider-div {
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+}
+
+#slider-div>div {
+  margin: 8px;
+}
+
+.slider-label {
+  /* position: absolute; */
+  background-color: #F0F8FF;
+  /* padding: 4px; */
+  font-size: 0.75rem;
+}
+
+#slideFilter{
+  width: 240px;
+}
+.slider.slider-horizontal{
+  width: 240px;
+}

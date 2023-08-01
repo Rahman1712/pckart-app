@@ -1,0 +1,21 @@
+
+#main,
+#footer {
+  margin-left: 0px;
+}
+
+.pagetitle{
+  margin-left: 10px;
+}
+
+.profile{
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+}
+
+
+.bg-error{
+  color: #DC3545;
+  background: #ffe1e4;
+}

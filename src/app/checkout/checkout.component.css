@@ -1,0 +1,164 @@
+
+#main{
+  margin-left: 10px;
+  min-height: 100vh;
+}
+#footer{
+  margin-left: 10px;
+}
+
+.cart-list-section{
+  font-family: 'Poppins', sans-serif;
+  color: #012970;
+}
+.cart-list-section .cart-list-title{
+  font-size: 15px;
+  font-weight: bold;
+  margin-left: 5px;
+}
+.cart-list-section ul{
+  list-style: none;
+  padding: 0;
+  font-weight: 500;
+}
+.cart-list-section ul li{
+  border-bottom: 1px dotted rgba(0 0 0 / 20%);
+}
+.cart-list-section .product_name{
+  font-weight: bold;
+  color: #000;
+}
+
+
+
+
+/* -------------- */
+.coupon .coupon_code{
+  width: 50%;
+  border-radius: 0;
+  border-right: none;
+  border-left: none;
+
+  height: 30px;
+  border: 2px solid rgba(0,0,0,0.1);
+  background: transparent;
+
+  display: inline-block;
+  font-family: 'Orbitron', sans-serif;
+}
+.coupon .coupon_apply_btn{
+  height: 30px;
+  
+}
+
+
+/* ----------payment------- */
+.custom-radio{
+  cursor: pointer;
+}
+.custom-radio .form-check-input{
+  /* margin-top: 6px; */
+  width: 20px;
+  height: 20px;
+  background-color: #F0F0F0;
+  border-color: #007bff;
+  cursor: pointer;
+}
+.custom-radio .form-check-input:checked{
+  background-color: #17a2b8;
+  border-color: #17a2b8;
+}
+.custom-radio .form-check-label{
+  font-family: 'Poppins', sans-serif;
+  padding-left: 10px;
+  font-weight: bold;
+  color: #012970;
+  cursor: pointer;
+  display: inline;
+}
+/* ------------Address------ */
+.address-form .list-group .list-group-item{
+  cursor: pointer;
+}
+.address-form .list-group-item input[type="radio"]{
+  width: 20px;
+  height: 20px;
+  background-color:  #F0F0F0;;
+  border-color: #007bff;
+  cursor: pointer;
+}
+
+.address-form .list-group-item input[type="radio"]:checked{
+  background-color: #17a2b8;
+  border-color: #17a2b8;
+}
+.address-form .list-group-item.active{
+  background-color: #4758B8;
+  
+}
+
+.address-form .list-group-item .adress-radio-label{
+  font-family: 'Poppins', sans-serif;
+  padding-left: 10px;
+  font-weight: medium;
+  color: #012970;
+  margin: 0 0 0px;
+}
+.address-form .list-group-item.active .adress-radio-label{
+  color: #FFFFFF;
+}
+
+/* ----------contact--------- */
+.contact_row input[type="text"]{
+  border: 0.5px solid #012970;
+  color: #012970;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+/* ----------no item-------- */
+.no-item-text{
+  color: #012970;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+/* ------------------------ */
+.no_item_card {
+  font-family: 'Poppins', sans-serif;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 20px;
+}
+
+.no_item_card .card-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.no_item_card .card-text {
+  font-size: 16px;
+  color: #012970;
+}
+
+
+
+@media (max-width: 1199px) {
+  #main {
+    padding: 0px;
+  }
+}
+@media (max-width: 768px) {
+  #main{
+    margin-left: 5px;
+    margin-top: 190px;
+  }
+  #footer{
+    margin-left: 5px;
+  }
+
+  .section{
+    margin-left: 0;
+  }
+}

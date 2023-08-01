@@ -1,0 +1,120 @@
+<main id="main" class="main">
+  <div class="pagetitle ms-3">
+    <h1>Cart</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a routerLink="/" routerLinkActive="active">Home</a>
+        </li>
+        <li class="breadcrumb-item active">Carts</li>
+      </ol>
+    </nav>
+  </div>
+
+  <section class="section">
+    <div class="container-fluid">
+      <div class="row" *ngIf="cartResponseItems.length > 0; else elseBlock;">
+
+        <div class="col-lg-8">
+          <div class="col-lg-12 card p-2">
+            <div class="cart-table-section">
+              <table class="shop_table no-select" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th class="product-remove opacity-0"><span>Remove item</span></th>
+                    <th class="product-thumbnail opacity-0">
+                      <span>Thumbnail image</span>
+                    </th>
+                    <th class="product-name">Product</th>
+                    <th class="product-price">Price</th>
+                    <th class="product-quantity">Quantity</th>
+                    <th class="product-subtotal">Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr class="cart_item" *ngFor="let cartItem of cartResponseItems ;  let i = index;">
+                    <td class="product-remove" data-cell="remove">
+                      <a class="remove" aria-label="Remove this item" (click)="removeFromCart(cartItem,i)"><i class="bi bi-x "></i></a>
+                    </td>
+                    <td class="product-thumbnail" data-cell="product-image">
+                      <a (click)="viewProductDetails(cartItem.productResponse.parentCategoryName,cartItem.productResponse.categoryName,cartItem.productResponse.productId)" style="cursor: pointer;">
+                        <img [src]="cartItem.productResponse.mainImage.url" alt="Thumbnail image">
+                      </a>
+                    </td>
+                    <td class="product-name" data-cell="product-name">
+                      <a (click)="viewProductDetails(cartItem.productResponse.parentCategoryName,cartItem.productResponse.categoryName,cartItem.productResponse.productId)" style="cursor: pointer;">{{cartItem.productResponse.productName}}</a>
+                    </td>
+                    <td class="product-price" data-cell="product-price">
+                      <span><bdi>{{cartItem.productResponse.productPrice}}</bdi></span>
+                    </td>
+                    <td class="product-quantity" data-cell="product-quantity">
+                      <div class="quantity">
+                        <input type="button" value="-" class="minus" (click)="decrementQuantity(cartItem)">
+                        <input type="number" id="quantity" class="input-text qty text"  name="quantiy" inputmode="numeric" [value]="cartItem.quantity" min="1" [(ngModel)]="cartItem.quantity">
+                        <input type="button" value="+" class="plus" (click)="incrementQuantity(cartItem)">
+                      </div>
+                    </td>
+                    <td class="product-subtotal" data-cell="product-subtotal">
+                      <span ><bdi>{{cartItem.quantity * cartItem.productResponse.productPrice}}</bdi></span>
+                    </td>
+                  </tr>
+                  <hr class="cart-divider"> 
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title">
+                CART TOTALS
+              </h3>
+              <div class="subtotal d-flex justify-content-between">
+                <h5>Total</h5>
+                <span>{{ calculateSubtotal() | currency: 'INR'}}</span>
+              </div>
+              <hr class="cart-divider">
+              <div class="shipping d-flex justify-content-between align-items-center mt-1">
+                <h5>Shipping</h5>
+                <div class="text-center">
+                  <p>{{shipping == 0 ? 'Free shipping' : shipping | currency: 'INR'}}</p>
+                </div>
+              </div>
+              <hr class="cart-divider">
+              <div class="total d-flex justify-content-between align-items-center mt-1">
+                <h5>Subtotal</h5>
+                <div class="text-end m-0">
+                  <p class="total-price p-0 m-0">{{(calculateSubtotal()+shipping) | currency: 'INR'}}</p>
+                </div>
+              </div>
+              <div class="text-center mt-3">
+                <button routerLink="/checkout" routerLinkActive="active" class="btn btn-proceed">PROCEED TO CHECKOUT</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <ng-template #elseBlock>
+        <!-- <h4 class="text text-center mt-5 no-item-text">No cart items</h4> -->
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <div class="no_item_card">
+                <div class="card-body">
+                  <i class="bi bi-emoji-smile display-1 text-secondary mb-3"></i>
+                  <h5 class="card-title">No Cart Items</h5>
+                  <p class="card-text">You don't have any cart items yet.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </section>
+</main>

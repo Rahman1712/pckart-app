@@ -1,0 +1,211 @@
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Order</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a routerLink="/" routerLinkActive="active">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a routerLink="/orders" routerLinkActive="active">Orders</a>
+        </li>
+        <li class="breadcrumb-item active">Order : {{orderId}}</li>
+      </ol>
+    </nav>
+  </div>
+
+  <section class="section order_detail">
+    
+    <div class="row  p-0 m-0">
+      <div class="container">
+        <div class="card  mb-1">
+          <div class="track">
+            <div [class]="orderStatusActive('ORDERED') ? 'step active' : 'step'"> 
+              <span class="icon"> 
+                <i class="fa fa-check"></i> 
+              </span> 
+              <span class="text">Ordered</span> 
+            </div>
+            <div *ngIf="orderStatusActive('CANCELLED')"
+            [class]="orderStatusActive('CANCELLED') ? 'step active' : 'step'"> 
+              <span class="icon"> 
+                <i class="fa fa-close"></i> 
+              </span> 
+              <span class="text">Cancelled</span>
+            </div>
+            <div [class]="orderStatusActive('SHIPPED') ? 'step active' : 'step'"> 
+              <span class="icon"> 
+                <i class="fa fa-truck"></i> 
+              </span> 
+              <span class="text">Shipped</span> 
+            </div>
+            <div [class]="orderStatusActive('PROCESSING') ? 'step active' : 'step'"> 
+              <span class="icon"> 
+                <i class="fa fa-truck-fast"></i> 
+              </span> 
+              <span class="text">Processing</span>
+            </div>
+            <div [class]="orderStatusActive('DELIVERED') ? 'step active' : 'step'"> 
+              <span class="icon"> 
+                <i class="fa fa-box"></i> 
+              </span> 
+              <span class="text">Delivered</span>
+            </div>
+            <div *ngIf="order.orderStatus == 'RETURNED' && !orderStatusActive('RETURNED')" [class]="order.orderStatus == 'RETURNED' ? 'step active' : 'step'"> 
+              <span class="icon"> 
+                <i class="fa fa-spinner"></i> 
+              </span> 
+              <span class="text">Return Validation</span>
+            </div>
+            <div *ngIf="orderStatusActive('RETURNED')" [class]="orderStatusActive('RETURNED') ? 'step active' : 'step'"> 
+              <span class="icon"> 
+                <i class="fa fa-undo"></i> 
+              </span> 
+              <span class="text">Returned</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-1 ">
+      <div class="col-lg-8">
+        <div class="container">
+          <div class="card">
+            <!-- ps-3 pb-2 -->
+            <p class="card-title order_detail_title">Order Details</p>
+            <div class="card-body">
+  
+              <div class="col-lg-12 card p-2">
+                <div class="order_info">
+                  <h4 class="order_detail_subtitle">Order Information</h4>
+                  <div class="row">
+                    <p class="col-sm-3"><strong>Tracking Number</strong></p>
+                    <p class="col-sm-9" style="user-select: text;">{{order.trackingNo}}</p>
+                  </div>
+                  <div class="row">
+                    <p class="col-sm-3"><strong>Order Date</strong></p>
+                    <p class="col-sm-9">{{order.orderDate | dateFormat}}</p>
+                  </div>
+                  <div class="row">
+                    <p class="col-sm-3"><strong>Payment Method</strong></p>
+                    <p class="col-sm-9">{{order.paymentMethod.toString().replaceAll('_', ' ')}}</p>
+                  </div>
+                  <div class="row">
+                    <p class="col-sm-3"><strong>Total Price</strong></p>
+                    <p class="col-sm-9">{{order.totalPricePaid | currency: 'INR'}}</p>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="col-lg-12 card p-2">
+                <div class="cart-table-section ">
+                  <table class="shop_table no-select" cellspacing="0">
+                    <thead>
+                      <tr>
+                        <th class="product-thumbnail opacity-0">
+                          <span>Thumbnail image</span>
+                        </th>
+                        <th class="product-name">Product</th>
+                        <th class="product-quantity">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="cart_item" *ngFor="let product of order.products ;  let i = index;">
+               
+                        <td class="product-thumbnail" data-cell="product-image">
+                          <a >
+                            <img [src]="product.mainImage.url" alt="Thumbnail image">
+                          </a>
+                        </td>
+                        <td class="product-detail" data-cell="product detail">
+                          <a class="product-name">{{product.productName}}</a>
+                          <p >{{product.brand}}</p>
+                          <p >{{product.color}}</p>
+                        </td>
+                        <td class="product-amount" data-cell="product amount">
+                          <p>{{product.productPrice | currency : 'INR'}} 
+                            <i class="bi bi-x"></i>
+                            <span>{{product.productQuantity}}</span>
+                          </p>
+                          <p class="product-subtotal">{{(product.productPrice * product.productQuantity) | currency : 'INR'}} </p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="col-lg-12 card p-2">
+
+                <div class="address_info">
+                  <h4 class="order_detail_subtitle">Shipping Details</h4>
+                  <div class="row">
+                    <p class="col-sm-3"><strong>Fullname</strong></p>
+                    <p class="col-sm-9">{{order.orderAddress.fullname}}</p>
+                  </div>
+                  <div class="row">
+                    <p class="col-sm-3"><strong>Contact</strong></p>
+                    <p class="col-sm-9">
+                      {{
+                        order.orderAddress.houseno + ', ' +
+                        order.orderAddress.place + ', ' +
+                        order.orderAddress.city + ', ' +
+                        order.orderAddress.post + ', Pincode - ' +
+                        order.orderAddress.pincode + ', ' +
+                        order.orderAddress.state + ', ' +
+                        order.orderAddress.country 
+                      }}
+                    </p>
+                  </div>
+                  <div class="row">
+                    <p class="col-sm-3"><strong>Contact</strong></p>
+                    <p class="col-sm-9">{{order.orderAddress.contact}}</p>
+                  </div>
+                  <div class="row">
+                    <p class="col-sm-3"><strong>Alternative Contact</strong></p>
+                    <p class="col-sm-9">{{order.orderAddress.alternative_contact}}</p>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+  
+        </div>
+      </div>
+
+      <div class="col-lg-4 track_status">
+        <div class="container">
+          <div class="card">
+            <p class="card-title track_status_title">Tracking Status</p>
+            <div class="card-body">
+
+              <div class="timeline">
+                <div class="timeline-container" *ngFor="let track of order.trackStatus;">
+                  <img [src]="orderStatusImage(track.order_status)" >
+                  <div class="text-box">
+                    <h4>{{track.order_status}}</h4>
+                    <small>{{track.status_time | dateFormat}}</small>
+                    <p class="description">{{track.description}}</p>
+                    <span class="right-container-arrow"></span>
+                  </div>
+                </div>
+                <div class="timeline-container" *ngIf="order.orderStatus == 'RETURNED' && !orderStatusActive('RETURNED')">
+                  <img src="assets/img/order-check.png" >
+                  <div class="text-box">
+                    <h4>Return Validation</h4>
+                    <p class="description">on validation, response will be updated soon.</p>
+                    <span class="right-container-arrow"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>

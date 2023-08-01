@@ -1,0 +1,62 @@
+/* .background-radial-gradient {
+	background-color: hsl(218, 41%, 15%);
+	background-image: radial-gradient(650px circle at 0% 0%, hsl(218, 41%, 35%)
+		15%, hsl(218, 41%, 30%) 35%, hsl(218, 41%, 20%) 75%,
+		hsl(218, 41%, 19%) 80%, transparent 100%),
+		radial-gradient(1250px circle at 100% 100%, hsl(218, 41%, 45%) 15%,
+		hsl(218, 41%, 30%) 35%, hsl(218, 41%, 20%) 75%, hsl(218, 41%, 19%) 80%,
+		transparent 100%);
+} */
+
+section{
+	margin-top: 90px;
+}
+
+.background-radial-gradient {
+	background-color: hsl(218, 41%, 15%);
+	background-image: url('/assets/img/brands-banner.png'),
+	  radial-gradient(650px circle at 0% 0%, hsla(219, 41%, 35%, 0.493)
+		15%, hsla(218, 41%, 30%, 0.502) 35%, hsl(218, 41%, 20%) 75%,
+		hsla(218, 40%, 19%, 0.396) 80%, transparent 100%),
+		radial-gradient(1250px circle at 100% 100%, hsla(218, 41%, 45%, 0.304) 15%,
+		hsla(218, 41%, 30%, 0.373) 35%, hsl(218, 41%, 20%) 75%, hsl(218, 41%, 19%) 80%,
+		transparent 100%);
+}
+
+#radius-shape-1 {
+	height: 220px;
+	width: 220px;
+	top: -60px;
+	left: -130px;
+	background: radial-gradient(#44006b08, #ad1fff0c);
+	overflow: hidden;
+}
+
+#radius-shape-2 {
+	border-radius: 38% 62% 63% 37%/70% 33% 67% 30%;
+	bottom: -60px;
+	right: -110px;
+	width: 300px;
+	height: 300px;
+	background: radial-gradient(#44006b0b, #ad1fff12);
+	overflow: hidden;
+}
+
+.bg-glass {
+	background: transparent;
+	/* background-color: hsla(0, 0%, 100%, 0.9) !important; */
+	background-image: radial-gradient(650px circle at 0% 0%, hsla(0, 0%, 91%, 0.444)
+		15%, hsla(0, 0%, 100%, 0.661) 35%, hsla(218, 85%, 95%, 0.745) 75%,
+		hsla(218, 78%, 86%, 0.753) 80%, transparent 100%);
+	background-image: radial-gradient(650px circle at 0% 0%, hsla(0, 0%, 91%, 0.911)
+		15%, hsla(0, 0%, 100%, 0.937) 35%, hsla(218, 85%, 95%, 0.918) 75%,
+		hsla(217, 100%, 97%, 0.911) 80%);
+	backdrop-filter: saturate(200%) blur(25px);
+}
+/* 
+.body_center{
+	display: flex;
+	min-height: 100vh;
+	align-items: center;
+	justify-content: center;
+} */

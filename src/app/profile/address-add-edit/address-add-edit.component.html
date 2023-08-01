@@ -1,0 +1,132 @@
+<div class="p-3 pt-4">
+  <mat-card style="z-index: 600 !important;">
+    <mat-card-content>
+      <mat-card-title>
+        <p class="text-center title" [innerText]="isNew ? 'Add Address': 'Edit Address'">Address</p>
+      </mat-card-title>
+      <div *ngIf="isErrorOnForm()" class="text-danger text-center">
+        <h6 class="p-0 m-0">{{errorMsg}}</h6>
+      </div>
+      <div class="address-form pt-3">
+        <form ngNativeValidate #addressForm="ngForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row mb-3 d-flex flex-row">
+                <label for="fullname" class="col-3 col-form-label">Fullname</label>
+                <div class="col flex-grow-1">
+                  <input name="fullname" required="required" type="text" class="form-control" id="fullname"
+                    [(ngModel)]="address.fullname" (keyup)="onKeyUp()">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row mb-3 d-flex flex-row">
+                <label for="house" class="col-3 col-form-label">House</label>
+                <div class="col flex-grow-1">
+                  <input name="house" required="required" type="text" class="form-control" id="house"
+                    [(ngModel)]="address.houseno" (keyup)="onKeyUp()">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row mb-3 d-flex flex-row">
+                <label for="place" class="col-3 col-form-label">Place</label>
+                <div class="col flex-grow-1">
+                  <input name="place" required type="text" class="form-control" id="place" [(ngModel)]="address.place"
+                    (keyup)="onKeyUp()">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row mb-3">
+                <label for="city" class="col-3 col-form-label">City</label>
+                <div class="col flex-grow-1">
+                  <input name="city" required type="text" class="form-control" id="city" [(ngModel)]="address.city"
+                    (keyup)="onKeyUp()">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row mb-3 d-flex flex-row">
+                <label for="phone" class="col-3 col-form-label">Post</label>
+                <div class="col flex-grow-1">
+                  <input name="post" required="required" type="text" class="form-control" id="post"
+                    [(ngModel)]="address.post" (keyup)="onKeyUp()">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row mb-3 d-flex flex-row flex-grow">
+                <label for="pincode" required class="col-3  col-form-label">Pincode</label>
+                <div class="col flex-grow-1">
+                  <input name="pincode" type="text" class="form-control" id="pincode" [(ngModel)]="address.pincode"
+                    (keyup)="onKeyUp()">
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row mb-3 d-flex flex-row">
+                <label for="state" class="col-3 col-form-label">State</label>
+                <div class="col flex-grow-1">
+                  <input name="state" required type="text" class="form-control" id="state" [(ngModel)]="address.state"
+                    (keyup)="onKeyUp()">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row mb-3 d-flex flex-row">
+                <label for="country" class="col-3 col-form-label">Country</label>
+                <div class="col flex-grow-1">
+                  <input name="country" required type="text" class="form-control" id="country"
+                    [(ngModel)]="address.country" (keyup)="onKeyUp()">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row mb-3 d-flex flex-row">
+                <label for="phone" class="col-3 col-form-label">Contact</label>
+                <div class="col flex-grow-1">
+                  <input name="contact" type="text" class="form-control" id="contact" [(ngModel)]="address.contact"
+                    (keyup)="onKeyUp()" pattern="[0-9]{10}" title="please enter a 10 digit mobile number"
+                    required="required">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row mb-3 d-flex flex-row">
+                <label for="alternative_contact" class="col-3 col-form-label">Alternative Contact</label>
+                <div class="col flex-grow-1">
+                  <input name="alternative_contact" type="text" class="form-control" id="alternative_contact"
+                    [(ngModel)]="address.alternative_contact" (keyup)="onKeyUp()" pattern="[0-9]{10}"
+                    title="please enter a 10 digit mobile number" required="required">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end align-items-center">
+            <mat-card-actions class="mat-card-actions-right">
+              <!-- <button mat-raised-button class="mx-1" [mat-dialog-close]="true">Back</button> -->
+              <button mat-raised-button class="mx-1" (click)="closePopup()">Back</button>
+              <button type="submit" mat-raised-button class="mx-1" color="primary" (click)="isNew?save():update()"
+                [innerText]="isNew ? 'save' : 'update'">save</button>
+            </mat-card-actions>
+          </div>
+        </form>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

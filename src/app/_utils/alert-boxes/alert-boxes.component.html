@@ -1,0 +1,27 @@
+
+<container-element [ngSwitch]= getAlertType()>
+  <div *ngSwitchCase = "'CONFIRMATION'">
+    <h1 mat-dialog-title>{{conform_title}}</h1>
+    <div mat-dialog-content>{{conform_message}}</div>
+    <div mat-dialog-actions class="d-flex justify-content-end">
+      <button mat-button color="primary" (click)="dialogRef.close(false)">Cancel</button>
+      <button mat-button color="warn" (click)="dialogRef.close(true)">Confirm</button>
+    </div>
+  </div>
+
+  <div *ngSwitchCase = "'INFO'">
+    <h1 mat-dialog-title>{{info_title}}</h1>
+    <div mat-dialog-content>{{info_message}}</div>
+    <div mat-dialog-actions class="d-flex justify-content-end">
+      <button mat-button color="{{info_color}}" (click)="dialogRef.close(false)">close</button>
+    </div>
+  </div>
+  
+  <div *ngSwitchDefault>
+    <h1 mat-dialog-title>Alert</h1>
+    <div mat-dialog-content>this is a alert</div>
+    <div mat-dialog-actions class="d-flex justify-content-end">
+      <button mat-button color="primary" (click)="dialogRef.close(false)">ok</button>
+    </div>
+  </div>
+</container-element>

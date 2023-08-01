@@ -1,0 +1,84 @@
+<section class="banner__section">
+   <div class="container-fluid overflow-hidden position-relative">
+     <div class="image_banner_div"></div>
+      <!-- <img class="img-fluid" src="assets/img/brands-banner.png" class="image_banner" alt="BANNER"> -->
+
+      <!-- <div class="col-md-4 col-xl-4 position-absolute home_card" >
+        <div class="card m-b-30">
+          <div class="card-body row p-2">
+              <div class="card-title align-self-center mb-0">
+                  <p class="px-3"> All IT Brands Under One Roof</p>
+              </div>
+          </div>
+        </div>
+      </div> -->
+      <div id="hero" class="position-absolute home_card">
+        <div class="row icon-boxes container-fluid">
+          <div class="d-flex align-items-stretch mb-5 mb-lg-0" >
+            <div class="icon-box">
+              <h4 class="title"><a>All IT Brands Under One Roof</a></h4>
+              <ul >
+                <li>
+                  <i class="bi bi-check"  aria-hidden="true"> 
+                    <span > 100+ top Brands</span>
+                  </i>
+                </li>
+                <li>
+                  <i class="bi bi-check"  aria-hidden="true"> 
+                    <span > All India Fast Delivery</span>
+                  </i>
+                </li>
+                <li>
+                  <i class="bi bi-check"  aria-hidden="true"> 
+                    <span > Excellent Warranty Support</span>
+                  </i>
+                </li>
+                <li>
+                  <i class="bi bi-check"  aria-hidden="true"> 
+                    <span > Best Corporate Vendor</span>
+                  </i>
+                </li>
+                <li>
+                  <i class="bi bi-check"  aria-hidden="true"> 
+                    <span > 25 Yrs Industry Experience</span>
+                  </i>
+                </li>
+             </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+   </div>
+</section>
+
+<section class="category_section">
+  <div class="d-flex flex-column p-5">
+    <div class="row align-items-top mt-1 mb-2">
+      <p class="category_title">Categories</p>
+    </div>
+
+    <div class="row align-items-top">
+      <!-- ----- LOOP -->
+      <div class="col-lg-3 col-md-4 col-6" *ngFor="let subcat of subCategoriesList | slice:0:12 ; let i = index;">
+        <div class="card card-category">
+          <div class="category-image">
+            <a routerLink="/product-category/{{subcat.parent.name}}/{{subcat.name}}" routerLinkActive="active"
+              class="d-flex justify-content-center">
+              <img [src]="subcat.categoryImage.url" class="card-img-top" alt="...">
+            </a>
+          </div>
+          <div class="card-body d-flex flex-column  align-items-center">
+            <h5 class="card-title">{{subcat.name}}</h5>
+            <p class="card-text">{{countMap.get(subcat.name)}} products</p>
+          </div>
+        </div>
+      </div>
+      <!-- -----END LOOP -->
+    </div>
+  </div>
+  <div class="p-5 bg-secondary">
+    
+  </div>
+</section>
+
+

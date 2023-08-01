@@ -1,0 +1,72 @@
+<section class="background-radial-gradient overflow-hidden">
+  <div
+    class="container px-4 py-2 px-md-5 text-center text-lg-start my-5">
+    <div class="row gx-lg-5 align-items-center mb-5">
+      <!-- <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10"> -->
+      <div class="col-lg-6" style="z-index: 10">
+        <!-- <h1 class="my-5 display-5 fw-bold ls-tight"
+          style="color: hsl(218, 81%, 95%)">
+          PCKART <br /> <span style="color: hsl(218, 39%, 53%)">USER LOGIN</span>
+        </h1>
+        <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
+          .
+        </p> -->
+      </div>
+
+      <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+        <div id="radius-shape-1"
+          class="position-absolute rounded-circle shadow-5-strong"></div>
+        <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+
+        <div class="card bg-glass">
+          <div class="card-body py-3 px-4 px-md-5">
+            <h5 class="card-title text-center" style="font-size: 20px;">Login</h5>
+            <div *ngIf="isErrorOnLogin()"  class="text text-danger">
+              <h6>{{errorMsg}}</h6>
+            </div>
+            <form ngNativeValidate (ngSubmit)="loginUser()" method="post">
+
+              <div class="col-md-12 mb-3">
+                <div class="form-floating">
+                  <input [(ngModel)]="adminLoginDetail.username" type="text" class="form-control" id="floatingUsername" name="username" placeholder="User Name" required value="">
+                  <label for="floatingUsername">Username</label>
+                </div>
+              </div>
+
+
+              <div class="col-md-12 mb-3">
+                <div class="form-floating">
+                  <input [(ngModel)]="adminLoginDetail.password" type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" required value="">
+                  <label for="floatingPassword">Password</label>
+                </div>
+              </div>
+
+              <div class="form-floating d-flex justify-content-center mt-1 mb-3">
+                <p class="mb-0">
+                  Forgot password ? 
+                  <a routerLink="/forgot" routerLinkActive="active" 	class="fw-normal mx-2 link-underline-secondary link-offset-1 link-underline-opacity-25">click here</a>
+                </p>
+              </div>
+
+              <!-- Submit button -->
+              <div class="form-floating d-flex justify-content-center">
+                <button class="btn btn-primary btn-lg col-6" type="submit">Login</button>
+              </div>
+
+              <div class="form-floating d-flex justify-content-center mt-3 mb-5">
+                <p class="mb-0 ">
+                  don't have account ? 
+                  <a routerLink="/register" routerLinkActive="active" 	class="fw-normal mx-2 link-underline-secondary link-offset-1 link-underline-opacity-25 text-danger">register</a>
+                </p>
+              </div>
+              
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+

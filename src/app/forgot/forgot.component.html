@@ -1,0 +1,43 @@
+<section class="background-radial-gradient overflow-hidden">
+  <div
+    class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+    <div class="row gx-lg-5 align-items-center mb-5">
+      <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+        <h1 class="my-5 display-5 fw-bold ls-tight"
+          style="color: hsl(218, 81%, 95%)">
+          PCKART <br /> <span style="color: hsl(218, 39%, 53%)">FORGOT PASSWORD</span>
+        </h1>
+        <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
+          .
+        </p>
+      </div>
+
+      <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+        <div id="radius-shape-1"
+          class="position-absolute rounded-circle shadow-5-strong"></div>
+        <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+
+        <div class="card bg-glass">
+          <div class="card-body py-3 px-4 px-md-5">
+            <h5 class="card-title text-center" style="font-size: 20px;">Reset Password</h5>
+            <form ngNativeValidate #resetForm="ngForm"  (ngSubmit)="resetPassword()">
+             
+              <div class="row mb-3">
+                <label for="email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                <div class="col-md-8 col-lg-9">
+                  <input name="email" type="email" class="form-control" id="email" required [(ngModel)]="email">
+                </div>
+              </div>
+            
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">get otp</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+

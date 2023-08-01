@@ -1,0 +1,181 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>{{parentCategoryName}}</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/" routerLinkActive="active">Home</a></li>
+        <li class="breadcrumb-item active">{{parentCategoryName}}</li>
+      </ol>
+    </nav>
+  </div>
+
+  <!-- ======= Sidebar ======= -->
+  
+  <aside class="bg-light p-4" id="sidebar" class="sidebar">
+    <h3>Filter Options</h3>
+  
+  
+    <mat-card class="example-result-card">
+      <mat-card-content>
+        <p>Price Range</p>
+  
+        <!-- <div class="d-flex justify-content-between">
+          <label class="example-value-label">{{sliderStart.value}}</label>
+          <label class="example-value-label">{{sliderEnd.value}}</label>
+        </div>
+        <mat-slider class="example-margin" [disabled]="false" [max]="maxPrice" [min]="minPrice" [step]="(maxPrice/10)" [discrete]="true"
+          [showTickMarks]="true">
+          <input matSliderStartThumb [(ngModel)]="minPrice" #sliderStart>
+          <input matSliderEndThumb [(ngModel)]="maxPrice" #sliderEnd>
+        </mat-slider> -->
+      </mat-card-content>
+    </mat-card>
+  
+    <mat-card class="example-result-card">
+      <mat-card-content>
+        <div class="mb-4">
+          
+          <h5>Brands</h5>
+
+          <div class="nav-item">
+            <h5>PRICE</h5>
+                <div class="d-flex ">
+                  <input id="slideFilter" type="text" 
+                     data-slider-min="200"
+                     data-slider-max="2000" 
+                     data-slider-value="[500,1000]"
+                     data-slider-tooltip="hide" />
+                </div>
+                <div class="d-flex my-2 align-items-center justify-content-around">
+                  <div id="slider-min-label" class="slider-label"></div>
+                  <span> — </span>
+                  <div id="slider-max-label" class="slider-label"></div>
+                  <button class="btn btn-primary">Filter</button>
+                </div>
+              </div>
+
+          <!-- <mat-chip #c="matChip" *ngFor="let color of colors" [value]="color">
+            <mat-icon *ngIf="c.selected">check</mat-icon>
+            {{color}}
+          </mat-chip> -->
+          <h5>Colors</h5>
+          <div class="d-flex flex-wrap">
+            <span
+              class="badge badge-secondary m-1 cursor-pointer bg-primary"
+              *ngFor="let color of colors"
+              (click)="removeColor('color')"
+            >
+              {{ color }}
+            </span>
+          </div>
+          <mat-chip-listbox selectable multiple aria-label="Color selection" *ngFor="let brand of brands" [value]="brand">
+              <mat-chip>{{ brand }}</mat-chip>
+          </mat-chip-listbox>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="example-result-card">
+      <mat-card-content>
+        <div class="mb-4">
+          <h5>Colors</h5>
+          <mat-chip-listbox>
+            <mat-chip-listbox aria-label="Color selection" *ngFor="let color of colors">
+              <mat-chip-option>{{ color }}</mat-chip-option>
+            </mat-chip-listbox>
+          </mat-chip-listbox>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </aside>
+  
+  <section class="section">
+    <div class="row align-items-top">
+      <!-- ----- LOOP -->
+      <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let subcat of subCategoriesList; let i = index;">
+        <div class="card card-category">
+          <div class="category-image">
+            <a routerLink="/product-category/{{parentCategoryName}}/{{subcat.name}}" routerLinkActive="active"
+              class="d-flex justify-content-center">
+              <img [src]="subcat.categoryImage.url" class="card-img-top" alt="...">
+            </a>
+          </div>
+          <div class="card-body d-flex flex-column  align-items-center">
+            <h5 class="card-title">{{subcat.name}}</h5>
+            <p class="card-text">{{countMap.get(subcat.name)}} products</p>
+          </div>
+        </div>
+      </div>
+      <!-- -----END LOOP -->
+    </div>
+    
+    <div class="row align-items-top">
+      <!-- ----- LOOP FOR PRODS-->
+      <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let prodDto of productsListImgs; let i = index;">
+        <div class="card card-product">
+          <div class="icons">
+            <!-- class="text-decoration-none text-dark product-wish" -->
+            <a [classList]="isInWishList(prodDto.productResponse.productId) ? 'text-decoration-none text-dark product-wished' : 'text-decoration-none text-dark product-wish'"  (click)="productAddToWish(prodDto)"><i class="bi bi-heart"></i></a>
+            <a class="text-decoration-none text-dark product-view"
+              (click)="viewProductDetails(parentCategoryName,prodDto.productResponse.categoryName,prodDto.productResponse.productId)"><i
+                class="bi bi-eye"></i></a>
+    
+          </div>
+          <div class="onsale">
+            <span class="badge rounded-0">
+              <i class="bi bi-long-arrow-down"></i>
+              <!-- 29% -->
+              -{{prodDto.productResponse.productDiscount}}%
+            </span>
+          </div>
+    
+          <div class="product-image">
+            <img [src]="prodDto.productResponse.mainImage.url" class="card-img-top" alt="...">
+          </div>
+          <div class="card-body">
+            <h5 class="product-title">
+              <a
+                (click)="viewProductDetails(parentCategoryName,prodDto.productResponse.categoryName,prodDto.productResponse.productId)">
+                <!-- A-DATA 8GB DDR4 2400 Mhz Premier Laptop RAM -->
+                {{prodDto.productResponse.productName | limitTextSize:35}}
+              </a>
+            </h5>
+            <h6 class="product-brand">
+              <a href="">
+                <!-- ADATA -->
+                {{prodDto.productResponse.brandName}}
+              </a>
+            </h6>
+            <!-- <ul class="ratings  d-flex align-items-start p-0 gap-3">
+                      <li class="rating-star">1<i class="bi bi-long-arrow-down"></i></li>
+                      <li class="rating-star">2<i class="bi bi-long-arrow-down"></i></li>
+                      <li class="rating-star">3<i class="bi bi-long-arrow-down"></i></li>
+                      <li class="rating-star">4<i class="bi bi-long-arrow-down"></i></li>
+                      <li class="rating-star">5<i class="bi bi-long-arrow-down"></i></li>
+                    </ul> -->
+            <p class="product-prices">
+              <span class="actual-price">
+                <!-- $9373.00 -->
+                ${{prodDto.productResponse.productPrice}}
+              </span>
+              <span class="discount-price">
+                <!-- $5667.00 -->
+                ${{(prodDto.productResponse.productPrice - (prodDto.productResponse.productPrice *
+                prodDto.productResponse.productDiscount/100)).toFixed(2)}}
+              </span>
+              <br>
+              <span class="gst">GST Included</span>
+            </p>
+            <div class="product-cart-btn d-flex align-items-center justify-content-center">
+              <button class="btn btn-white shadow-sm" (click)="productAddToCart(prodDto)">
+                <i class="bi bi-cart"></i>
+                <span>ADD TO CART</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- -----END LOOP -->
+    </div>
+  </section>
+</main>
+
